@@ -3,7 +3,7 @@
 Hosts=(`cat $PBS_NODEFILE | uniq`)
 Time=90000
 
-for k in $(seq 0 2); do
+for k in $(seq 0 9); do
   JobId=`head /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1`
   JobDir="$SCRATCH/erlang-mas/$JobId"
 
