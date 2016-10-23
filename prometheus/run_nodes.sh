@@ -13,7 +13,7 @@ for i in $(seq 0 9); do
   cd $job_dir
 
   for host in ${hosts[*]}; do
-    pbsdsh -o -h $host $HOME/ppagh/prometheus/run_node.sh $job_dir $job_id > /dev/null &
+    srun -o --nodelist=$host $HOME/ppagh/prometheus/run_node.sh $job_dir $job_id > /dev/null &
   done
 
   wait
