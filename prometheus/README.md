@@ -51,7 +51,7 @@ cd release/tests/test_server
 $ERL_TOP/bin/erl -s ts install -s ts smoke_test batch -s init stop
 ```
 
-(Open `$ERL_TOP/release/tests/test_server/index.html` in your web browser and make sure that there are zero failed test cases.)
+Open `$ERL_TOP/release/tests/test_server/index.html` in your web browser and make sure that there are zero failed test cases.
 
 Install release:
 
@@ -82,6 +82,13 @@ local version = myModuleVersion()
 local pkgName = myModuleName()
 local pkg     = pathJoin(home,".pkg",pkgName,version,"bin")
 prepend_path("PATH", pkg)
+```
+
+In order to load prepared module, type:
+
+```bash
+module use $HOME/.modulefiles
+module load erlang/17.5
 ```
 
 ## Usage
