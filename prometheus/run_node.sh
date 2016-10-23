@@ -1,12 +1,15 @@
 #/bin/bash
 
 . /etc/bashrc
+
+# find module equivalent in Prometheus repository
 module load apps/erlang/17.3
 
 Time=$1
 JobDir=$2
 JobId=$3
 
+# change path
 EmasRoot=$HOME/erlang-emas
 LogPath="$JobDir/`hostname`"
 mkdir -p $LogPath
