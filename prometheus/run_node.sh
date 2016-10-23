@@ -1,21 +1,22 @@
-#/bin/bash
+#!/bin/bash -l
 
 . /etc/bashrc
 
-# find module equivalent in Prometheus repository
-module load apps/erlang/17.3
+module use $HOME/.modulefiles
+module load erlang/17.5
 
-Time=$1
-JobDir=$2
-JobId=$3
+job_dir=$1
+job_id=$2
 
-# change path
-EmasRoot=$HOME/erlang-emas
-LogPath="$JobDir/`hostname`"
-mkdir -p $LogPath
+emas_root=$HOME/ppagh/erlang-emas
+logs_path="$job_dir/`hostname`"
+mkdir -p $logs_path
 
-cd $JobDir
-erl -sname emas -setcookie $JobId -pa $EmasRoot/ebin \
-  -pa $EmasRoot/deps/*/ebin -noshell -detach \
-  -eval "emas:start($Time, [{model, mas_hybrid}, {islands, 12}, {log_dir, \"$LogPath\"}, {world_migration_probability, 0.001}])." \
+duration=90000 # 25 minutes
+world_migration_probability=0.001
+
+cd $job_dir
+erl -sname emas -setcookie $job_id -pa $emas_root/ebin \
+  -pa $emas_root/deps/*/ebin -noshell -detach \
+  -eval "emas:start($simulation_duration, [{model, mas_hybrid}, {islands, 24}, {log_dir, \"$logs_path\"}, {world_migration_probability, \"$world_migration_probability\"}])." \
   -run init stop

@@ -1,23 +1,19 @@
-#/bin/bash
+#!/bin/bash -l
 
-# find $PBS_NODEFILE equivalent in Slurm
-Hosts=(`cat $PBS_NODEFILE | uniq`)
-Time=90000
+session_timestamp = $1
 
-for k in $(seq 0 9); do
-  JobId=`head /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1`
+hosts=(`cat $SLURM_JOB_NODELIST | uniq`)
 
-  # check whether $SCRATCH occurs under the same directory
-  # change moar_migrations to some random experiment session id
-  JobDir="$SCRATCH/moar_migrations/$JobId"
+for i in $(seq 0 9); do
+  job_id=`head /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1`
 
-  mkdir -p $JobDir
-  cd $JobDir
+  job_dir="$SCRATCH/ppagh/$session_timestamp/$job_id"
 
-  for host in ${Hosts[*]}; do
-    # redirect stdout to log files instead of /dev/null
-    # change script path
-    pbsdsh -o -h $host $HOME/emas-scripts/zeus_3/run_node.sh $Time $JobDir $JobId > /dev/null &
+  mkdir -p $job_dir
+  cd $job_dir
+
+  for host in ${hosts[*]}; do
+    pbsdsh -o -h $host $HOME/ppagh/prometheus/run_node.sh $job_dir $job_id > /dev/null &
   done
 
   wait

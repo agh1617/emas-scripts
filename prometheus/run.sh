@@ -1,15 +1,23 @@
-#/bin/bash
+#!/bin/bash -l
 
-MinNodes=1
-MaxNodes=100
-Step=2
+session_timestamp=`date +%s`
 
-Grant=plglogin
+min_nodes=1
+max_nodes=100
+step=2
 
-for i in $(seq $MinNodes $Step $MaxNodes); do
-  printf $i
-  # find qsub (and all its options) equivalent in Slurm
-  # replace l_short queue with appropriate Prometheus queue
-  # change script path
-  qsub -q l_short -N emas_$i -A $Grant -l nodes=$i:ppn=12 -l walltime=00:20:00 $HOME/emas-scripts/zeus_3/run_nodes.sh
+grant=plglogin
+
+mkdir -p "$SCRATCH/ppagh"
+
+for num_nodes in $(seq $min_nodes $step $max_nodes); do
+  printf $num_nodes
+
+  sbatch -p plgrid \
+         -A $grant \
+         -N $num_nodes \
+         --ntasks-per-node=24 \
+         --time=00:20:00 \
+         -J ppagh-emas-$num_nodes \
+         $HOME/ppagh/run-scripts/prometheus/run_nodes.sh $session_timestamp
 done
