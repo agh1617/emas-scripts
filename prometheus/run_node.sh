@@ -12,7 +12,7 @@ emas_root=$HOME/ppagh/erlang-emas
 logs_path="$job_dir/`hostname`"
 mkdir -p $logs_path
 
-duration=90000 # 25 minutes
+duration=90000 # 90 seconds
 world_migration_probability=0.001
 
 cd $job_dir
