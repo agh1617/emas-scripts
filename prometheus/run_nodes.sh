@@ -1,6 +1,6 @@
 #!/bin/bash -l
 
-session_timestamp = $1
+session_timestamp=$1
 
 hosts=(`cat $SLURM_JOB_NODELIST | uniq`)
 
