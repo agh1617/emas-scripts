@@ -56,6 +56,7 @@ Open `$ERL_TOP/release/tests/test_server/index.html` in your web browser and mak
 Install release:
 
 ```bash
+cd $HOME/otp_src_17.5
 make install
 ```
 
