@@ -2,7 +2,7 @@
 
 session_timestamp=$1
 
-hosts=(`cat $SLURM_JOB_NODELIST | uniq`)
+hosts=(`echo $SLURM_JOB_NODELIST | uniq`)
 
 for i in $(seq 0 9); do
   job_id=`head /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1`
