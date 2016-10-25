@@ -2,7 +2,9 @@
 
 session_timestamp=$1
 
-hosts=`echo $SLURM_JOB_NODELIST | tr -d "p[]" | tr "," "\n" | uniq | sed 's/^/p/'`
+hosts=`echo $SLURM_JOB_NODELIST | tr -d "p[]" | tr ",-" "\n" | sed 's/^/p/' | uniq`
+
+echo $SLURM_JOB_NODELIST | tr -d "p[]" | tr ",-" "\n" | sed 's/^/p/' | uniq | sed -e "s/\(.*\)/'\1'./" > $HOME/.hosts.erlang
 
 for i in $(seq 0 9); do
   job_id=`head /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1`
