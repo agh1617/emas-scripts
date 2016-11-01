@@ -12,9 +12,5 @@ for i in $(seq 0 9); do
   mkdir -p $job_dir
   cd $job_dir
 
-  for host in ${hosts[*]}; do
-    srun -o --nodelist=$host $HOME/ppagh/run-scripts/prometheus/run_node.sh $job_dir $job_id > /dev/null &
-  done
-
-  wait
+  srun -o /dev/null $HOME/ppagh/run-scripts/prometheus/run_node.sh $job_dir $job_id
 done
