@@ -19,7 +19,7 @@ for num_nodes in $(seq $min_nodes $step $max_nodes); do
          --account=$grant \
          --nodes=$num_nodes \
          --ntasks=$num_nodes \
-         --cpus-per-task=24 \
+         --cpus-per-task=12 \
          --time=$time \
          --job-name=emas-$num_nodes \
          $HOME/ppagh/run-scripts/prometheus/run_nodes.sh $session_timestamp
