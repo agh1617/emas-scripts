@@ -19,5 +19,5 @@ world_migration_probability=0.001
 cd $job_dir
 erl -sname $hostname -setcookie $job_id -pa $emas_root/ebin \
   -pa $emas_root/deps/*/ebin -noshell -detach \
-  -eval "emas:start($duration, [{model, mas_hybrid}, {islands, 12}, {log_dir, \"$logs_path\"}, {world_migration_probability, \"$world_migration_probability\"}])." \
+  -eval "emas:start($duration, [{model, mas_hybrid}, {islands, 24}, {log_dir, \"$logs_path\"}, {world_migration_probability, \"$world_migration_probability\"}])." \
   -run init stop
