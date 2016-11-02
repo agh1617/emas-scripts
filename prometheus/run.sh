@@ -8,7 +8,7 @@ step=2
 
 grant=plglogin
 partition=plgrid
-time="00:20:00"
+time="00:10:00"
 
 mkdir -p "$SCRATCH/ppagh"
 
