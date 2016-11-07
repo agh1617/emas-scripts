@@ -12,6 +12,6 @@ for i in $(seq 0 9); do
 
   srun -l /bin/hostname | sort -n | awk '{printf "'\''%s'\''.\n", $2}' > $job_dir/.hosts.erlang
   wait
-  srun -o /dev/null $HOME/ppagh/run-scripts/prometheus/run_node.sh $job_dir $job_id
+  srun -o /dev/null $HOME/ppagh/run-scripts/prometheus/run_node.sh $job_dir $job_id, $session_timestamp
   wait
 done
